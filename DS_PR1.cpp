@@ -10,7 +10,10 @@ class Emp
 	public : 
 		void Create(); 
 		void Insert(Emp *root, Emp *next); 
-		void Display(Emp *root); 
+		void DisplayInorder(Emp *root); 
+		void DisplayPreorder(Emp *root); 
+		void DisplayPostorder(Emp *root); 
+
 }*root; 
 void Emp :: Create()
 {
@@ -43,13 +46,13 @@ void Emp :: Create()
 				next->Rc = NULL; 
 				Insert(root, next); 
 		 }
-	 }while(ch!=1); 
+	 }while(ch==1); 
 }
 
 void Emp :: Insert(Emp *root, Emp *next)
 {
 		char chr; 
-		cout<<"\nEnter Where you want to insert new Emp info -> Left/Right of ID : "<<root->id;
+		cout<<"\nEnter Where you want to insert new Emp info -> Left/Right of ID : ";
 		cin>>chr; 
 		
 		if(chr == 'L' || chr == 'l') 
@@ -75,25 +78,82 @@ void Emp :: Insert(Emp *root, Emp *next)
 			}
 		}	
 }
-void Emp :: Display(Emp *root)
+void Emp :: DisplayInorder(Emp *root)
 {
 	if(root == NULL)
-	{
-		cout<<"\nDon't Have Data"; 
+	{ 
 		return; 
 	}
 	else
 	{
-		Display(root->Lc); // Recursion Function
+		DisplayInorder(root->Lc); // Recursion Function
 		cout << "\nEmployee ID: " << root->id << "\tEmployee Name: " << root->name; 
-		Display(root->Rc); // Recursion Function
+		DisplayInorder(root->Rc); // Recursion Function
+	}
+}
+
+void Emp :: DisplayPreorder(Emp *root)
+{
+	if(root == NULL)
+	{
+		return; 
+	}
+	else
+	{
+		
+		cout << "\nEmployee ID: " << root->id << "\tEmployee Name: " << root->name; 
+		DisplayPreorder(root->Lc); // Recursion Function
+		DisplayPreorder(root->Rc); // Recursion Function
+	}
+}
+
+void Emp :: DisplayPostorder(Emp *root)
+{
+	if(root == NULL)
+	{
+		return; 
+	}
+	else
+	{
+		DisplayPostorder(root->Lc); // Recursion Function
+		DisplayPostorder(root->Rc); // Recursion Function
+		cout << "\nEmployee ID: " << root->id << "\tEmployee Name: " << root->name; 
 	}
 }
 
 int main()
 {
 	Emp e; 
-	e.Create(); 
-	e.Display(Emp :: root); 
+	int ch; 
+	do 
+	{
+		cout<<"\n========================Menu=========================="; 
+		cout<<"\n1.Create \n2.Display Inorder \n3.Display Preorder \n4.Display Postorder \n5.Exit"; 
+		cout<<"\nEnter Your Choice :"; 
+		cin>>ch; 
+		
+		switch(ch)
+		{
+				case 1 : 
+					e.Create(); 
+					break; 
+				case 2 : 
+					e.DisplayInorder(root); 
+					break; 
+				case 3 : 
+					e.DisplayPreorder(root); 
+					break; 
+				case 4 : 
+					e.DisplayPostorder(root); 
+					break; 
+				case 5 : 
+					cout<<"\n======Thanks For Using=============="; 
+					return 0; 
+					break; 
+				default : 
+					cout<<"\n!!!Wrong Choice !!!"; 
+					break; 
+		}
+	}while(ch!=5 );  
 	return 0; 
 }

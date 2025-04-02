@@ -3,83 +3,107 @@ using namespace std;
 class GR
 {
 	int v, fuel;
-	string city[10]; 
-	GR *next; 	// Pointer to connect cities
+	string city; 
+	GR *next; 
 	public : 
 		void Create(); 
 		void AddEdge(); 
 		void Display(); 
 	
-}*head[10]; // Array of pointers each pointing to a city
+}*head[10]; 
 
 void GR :: Create()
 {
 	cout<<"\nEnter No. of Cities :"; 
 	cin>>v; //5
-
+	
+	cout<<"\nEnter City Names :"; 
 	for(int i=0;i<v;i++)
 	{
-		head[i] = new GR; 	// New node for each city
-		cout<<"\nEnter City Names :";  
-		cin>>head[i]->city; 	//store city names
-		head[i]->next = NULL; 	//no any connection yet
+		head[i] = new GR; 
+		 
+		cin>>head[i]->city; 
+		head[i]->next = NULL; 
 	}	
 }
-void GR :: AddEdge()	//To add connections[edges] between cities
+void GR :: AddEdge()
 {
 	string src, dest;
-	GR *n1, *temp; 	// Pointers for newnode[n1] & Traversal[temp]
-	int e;
+	GR *n1, *temp; 
+	int e, i,j;
 	cout<<"\nEnter No. of Edges :"; 
 	cin>>e; 
-	for(int i=0;i<v;i++)
+	for( i=0;i<e;i++)
 	{
 		cout<<"\nEnter Source and Destination Cities :"; 
 		cin>>src>>dest; 
-		for(j=0;j<v;j++)		// Find the source city in the list
+		for(j=0;j<v;j++)
 		{
-			if(head[j]->city == src)	// When the source city is found int the list
+			if(head[j]->city == src)
 			{
-				break; 					// then break the loop 
+				break; 
 			}
 		}
-		n1 = new GR(); //n1 is newnode for destination city
-		n1->city = dest; 	//Data is stored in that newnode is city name 
+		n1 = new GR; //n1 is newnode 
+		n1->city = dest; 	//Data is stored in that newnode city name 
 						//and fuel
 		cout<<"\nEnter Fuel :";      
-		cin>>n1->fuel; 	//store fuel required for travel
-		n1->next = NULL; //Initially, newnode is not conncected to any node
-		temp = head[i];   //started from head node -> index = 0
-							//[Source city]
-		while(temp!=NULL)
+		cin>>n1->fuel; 
+		n1->next = NULL; //newnode is not conncected to any node
+		temp = head[j];   //started from head node -> index = 0
+		while(temp->next!=NULL)
 		{
 			temp = temp->next; 
 		}
 		temp->next = n1; //connected head node and newNode
-						//connected the new city node to source city
 	}
 }
 void GR :: Display()
 {
-	cout<<"\nGraph Representation :"; 
+	cout<<"\nGraph Representation :"<<endl; 
 	
+	GR *temp; 
 	for(int i=0;i<v;i++)
 	{
-			cout<<head[i]->city; 
-			
-			GR *temp = head]i]->next; 
-			
-			while(temp != NULL)
-			{
-					cout<<" "<<temp->city<<"\t"<<temp->fuel; 
-					temp = temp->next; 
-			}
+		temp = head[i]; 
+		while(temp!=NULL)
+		{
+			cout<<" "<<temp->city<<"->"<<temp->fuel<<"-> ";
+			temp = temp->next; 
+		}
+		cout<<"!!NULL!! \n"; 
 	}
 }
+
 int main()
 {
-		GR g1 = new GR; 
-		g.Create(); 
-		g.AddEdge(); 
-		g.Display(); 
+	GR g; 
+	int ch; 
+	cout<<"\n=======================Menu============================"; 
+	do
+	{
+		cout<<"\n1.Create \n2.Add Edge \n3.Display \n4.Exit"; 
+		cout<<"\nEnter Your Choice :"; 
+		cin>>ch; 
+		switch(ch)
+		{
+			case 1 : 
+				g.Create(); 
+				break; 
+			case 2 : 
+				g.AddEdge(); 
+				break; 
+			case 3 : 
+				g.Display(); 
+				break; 
+			case 4 : 
+				cout<<"\n==============Thanks For Using==================="; 
+				return 0; 
+				break; 
+			default : 
+				cout<<"\n!!!!Wrong Choice!!!!"; 
+				break;
+		}
+	}while(ch!=4);
+return 0; 
 }
