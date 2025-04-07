@@ -8,7 +8,7 @@ class MinSTree
 	public : 
 		void Create(); 
 		void Display(); 
-		void MST();	
+		void DisplayMST();	
 }; 
 void MinSTree :: Create()
 {
@@ -58,7 +58,7 @@ void MinSTree :: Display()
 
 }
 
-void MinSTree :: MST()
+void MinSTree :: DisplayMST()
 {
 	int u, i, j; 
 	int min; 
@@ -95,13 +95,19 @@ void MinSTree :: MST()
 		}
 	}
 	
-	// Display the Minimum Spanning Tree
-    cout << "\n========= Minimum Spanning Tree =========\n"; 
-    cout << "Edge \tWeight\n"; 
-    for (int i = 1; i < v; i++) 
+	//Display MST
+	
+	int sum = 0; 
+    	for(int i=0;i<v;i++)
+    	{
+    		sum = sum + key[i]; 
+    	} 
+    	cout<<"\n******Cost Of MST = "<<sum<<"******"; 
+    	cout<<"\n=======Minimum Distance Selected from Source City========"; 
+    	for (int i =1;i<v;i++) 
 	{
-        cout << city[parent[i]] << " - " << city[i] << " \t" << adj[i][parent[i]] << endl;
-    }
+        	cout<<"\n" << city[parent[i]] << "  TO  " << city[i] << " --------> " << key[i] << endl;
+    	}
 	
 }
 int main()
@@ -109,9 +115,10 @@ int main()
 	MinSTree m;	
 	int ch; 
 	
-	cout<<"\n=======================Menu============================"; 
+
 	do
 	{
+		cout<<"\n=======================Menu============================"; 
 		cout<<"\n1.Create \n2.Display Cities \n3.Shortest Path \n4.Exit"; 
 		cout<<"\nEnter Your Choice :"; 
 		cin>>ch; 
@@ -124,7 +131,7 @@ int main()
 				m.Display(); 
 				break; 
 			case 3 : 
-				m.MST(); 
+				m.DisplayMST(); 
 				break; 
 			case 4 : 
 				cout<<"\n==============Thanks For Using==================="; 
