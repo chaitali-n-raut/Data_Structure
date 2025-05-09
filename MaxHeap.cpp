@@ -6,7 +6,7 @@ int count = 0;
 
 class MaxHeap
 {
-	int key[10];
+	int key[100];
 	public : 
 		void Accept(); 
 		void BuildHeap(int key[], int m, int value ); 
@@ -23,12 +23,13 @@ void MaxHeap :: Accept()
 	{
 		cin>>value; 
 		BuildHeap(key, i, value); 
+		count++; 
 	}
 }
 void MaxHeap :: BuildHeap(int key[], int m, int value)
 {
 		
-		count++; 
+		
 		key[m] = value; 
 		loc = m;
 		while(loc > 1)
@@ -50,19 +51,20 @@ void MaxHeap :: BuildHeap(int key[], int m, int value)
 }
 void MaxHeap :: Insert()
 {
-	 count++; 
+	 count++;
 	 n = count; 
 	 int newkey; 
 	cout<<"\nEnter Key Element To Insert :"; 
 	cin>>newkey; 
-	BuildHeap(key, count,  newkey);  
+	 
+	BuildHeap(key, n,  newkey);  
 }
 void MaxHeap :: DisplayHeap()
 {
 		cout<<"\nHeap Data :"<<"\n"; 
 		for(int i=1;i<=n;i++)
 		{
-			cout<<"\t"<<key[i]; 
+			cout<<key[i]<<"\t"; 
 		}
 }
 
