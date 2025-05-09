@@ -32,7 +32,7 @@ void LinearProb :: DisplayHashT()
 		cout<<"\nLocation "<<"\t"<< "PRN "<<"\t"<< "Name" <<"\t"<<"Percentage"<<endl; 
 		for(int i=0;i<10;i++)
 		{
-			cout<<i<<"\t\t"<<h[i].prn<<"\t\t"<<h[i].name<<"\t\t"<<h[i].percent<<endl; 
+			cout<<i<<"\t\t"<<h[i].prn<<"\t"<<h[i].name<<"\t\t"<<h[i].percent<<endl; 
 		}
 }
 
@@ -62,83 +62,99 @@ void LinearProb :: Accept()
 			{
 				loc = (loc+1)%10; //Directly finds next empty location
 			}
-		}while(loc!=pos);  // for taking 
+		}while(loc!=pos);  // for taking it to again 0th locatin
 		
 	}
 }
 
 void LinearProb :: Search()
 {
-	int Searchprn, flag=0; 
-	cout<<"\nEnter PRN of Student You Want to Search :"; 
-	cin>>Searchprn; 
-	
-	for(int i=0;i<10;i++)
+	int searchPrn, flag = 0;
+    cout << "\nEnter PRN of Student You Want to Search: ";
+    cin >> searchPrn;
+
+    int loc = searchPrn % 10;
+    int start = loc;
+
+    do 
 	{
-		if(h[i].prn == Searchprn)
+        if (h[loc].prn == searchPrn) 
 		{
-			cout<<"\n*******Student Record Found*****";
-			cout<<"\nLocation = "<<i; 
-			cout<<"\nPRN :"<<h[i].prn; 
-			cout<<"\nName :"<<h[i].name; 
-			cout<<"\nPercentage :"<<h[i].percent; 
-			flag = 1; 
-			break; 
-		}
-	}
-	if(flag == 0)
+            cout << "\nRecord Found!";
+            cout << "\nLoc = " << loc;
+            cout << "\nPRN: " << h[loc].prn;
+            cout << "\nName: " << h[loc].name;
+            cout << "\nPercentage: " << h[loc].percent;
+            flag = 1;
+            break;
+        }
+        loc = (loc + 1) % 10;
+    } while (loc != start);
+
+    if (flag == 0) 
 	{
-		cout<<"\n!!!!!Student Record Not Found!!!!!"; 
+        cout << "\nRecord Not Found!";
+    }
+}
+
+void LinearProb::Modify()
+{
+	int searchPrn, flag = 0;
+	cout << "\nEnter PRN of Student You Want To Update: ";
+	cin >> searchPrn;
+
+	int loc = searchPrn % 10;
+	int start = loc;
+
+	do
+	{
+		if (h[loc].prn == searchPrn)
+		{
+			cout << "\nEnter New Record:";
+			cout << "\nEnter New Name, Percentage: ";
+			cin >> h[loc].name >> h[loc].percent;
+			cout << "\n============Record Updated==================";
+			flag = 1;
+			break;
+		}
+		loc = (loc + 1) % 10;
+	} while (loc != start);  // stop if we've looped around
+
+	if (flag == 0)
+	{
+		cout << "\nStudent Record Not Found!!!";
 	}
 }
 
-void LinearProb :: Modify()
+void LinearProb::Delete()
 {
-	int Searchprn, flag = 0; 
-	cout<<"\nEnter PRN of Student You Want To Update :"; 
-	cin>>Searchprn; 
-	
-	for(int i=0;i<10;i++)
+	int Searchprn, flag = 0;
+	cout << "\nEnter PRN of Student You Want To Delete: ";
+	cin >> Searchprn;
+
+	int loc = Searchprn % 10;
+	int start = loc;
+
+	do
 	{
-		if(h[i].prn == Searchprn)
+		if (h[loc].prn == Searchprn)
 		{
-			cout<<"\nEnter New Record :"; 
-			cout<<"\nEnter New PRN, Name, Percentage :"; 
-			cin>>h[i].prn>>h[i].name>>h[i].percent; 
-			cout<<"\n============Record Updated=================="; 
-			flag = 1; 
-			break; 
+			h[loc].prn = -1;
+			h[loc].name = "-";
+			h[loc].percent = 0;
+			cout << "\n================Record Deleted===================";
+			flag = 1;
+			break;
 		}
-	}
-	if(flag == 0)
+		loc = (loc + 1) % 10;
+	} while (loc != start);  // Stop if we've come full circle
+
+	if (flag == 0)
 	{
-		cout<<"\nStudent Record Not Found!!!"; 
+		cout << "\nStudent Record Not Found!!!!";
 	}
 }
 
-void LinearProb :: Delete()
-{
-	int Searchprn, flag =0; 
-	cout<<"\nEnter PRN of Student You Want To Delete :"; 
-	cin>>Searchprn; 
-	
-	for(int i=0;i<10;i++)
-	{
-		if(h[i].prn == Searchprn)
-		{
-			h[i].prn = -1;
-			h[i].name = "-"; 
-			h[i].percent = 0 ; 
-			cout<<"\n================Record Deleted==================="; 
-			flag = 1; 
-			break; 
-		}
-	}
-	if(flag == 0)
-	{
-		cout<<"\nStudent Record Not Found!!!!"; 
-	}
-}
 int main()
 {
 	LinearProb l; 
